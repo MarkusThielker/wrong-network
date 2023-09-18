@@ -1,0 +1,18 @@
+services:
+
+  svelte:
+    image: wrong-network:latest
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.xyz-wrong-network.rule=Host(`thielker.xyz`) || Host(`accounts.thielker.xyz`) || Host(`finances.thielker.xyz`) || Host(`git.thielker.xyz`) || Host(`rmq.thielker.xyz`)"
+      - "traefik.http.routers.xyz-wrong-network.entrypoints=websecure"
+      - "traefik.http.routers.xyz-wrong-network.tls=true"
+      - "traefik.http.routers.xyz-wrong-network.tls.certresolver=lets-encrypt"
+    networks:
+      - web
+
+
+networks:
+  web:
+    external: true
